@@ -10,6 +10,7 @@ type Props = {};
 const Draws = (props: Props) => {
   const [drawData, setDrawData] = useState<any>([]);
   const [isCreateDrawOpen, setIsCreateDrawOpen] = useState(false);
+  const handleCreateDraw = () => setIsCreateDrawOpen(!isCreateDrawOpen);
   useEffect(() => {
     const fetch = async () => {
       const data = await getLotteryDrawData();
@@ -17,7 +18,6 @@ const Draws = (props: Props) => {
     };
     fetch();
   }, []);
-  const handleCreateDraw = () => setIsCreateDrawOpen(!isCreateDrawOpen);
   return (
     <div>
       <div className="flex justify-end">
