@@ -31,4 +31,9 @@ export type LotteryVoucherType = {
   dateGenerated:string
   quantity:string
 }
-export type statusBadgeType = 'in progress' | 'completed'
+export type AgentType = {
+  agentCode: string
+  status: "active" | "in active"
+  name: string | "skilled" | "unskilled" | "citizenship"
+}
+export type statusBadgeType = 'in progress' | 'completed' | 'active' | 'in active'
