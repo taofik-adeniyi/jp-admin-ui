@@ -26,6 +26,12 @@ export type LotteryDrawType = {
   startDate:string
   endDate:string
 }
+export type LotteryDrawTicketType = {
+  createdAt: string
+  ticketNumber: string,
+  channel: string;
+  phoneNumber:string
+}
 export type LotteryVoucherType = {
   title: string,
   dateGenerated:string

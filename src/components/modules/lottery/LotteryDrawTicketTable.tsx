@@ -1,8 +1,7 @@
 "use client";
 
-import JPButton from "@/components/JPButton";
 import { Table } from "@/components/table";
-import { formatDate, formatDateTime, fuzzyFilter } from "@/lib/utils";
+import { fuzzyFilter } from "@/lib/utils";
 import {
   getCoreRowModel,
   Table as ReactTable,
@@ -13,24 +12,20 @@ import {
   RowData,
   createColumnHelper,
 } from "@tanstack/react-table";
-import classNames from "classnames";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import {LotteryDrawType} from "@/lib/types"
-import StatusBadge from "@/components/StatusBadge";
-import { getLotteryDrawData } from "@/services/lottery";
+import {LotteryDrawTicketType} from "@/lib/types"
 type Props = {
-  data: LotteryDrawType[];
+  data: LotteryDrawTicketType[];
   onSelectRole?: (role: any) => void;
 };
 
 
-const LotteryDrawTable = ({data}: Props) => {
+const LotteryDrawTicketTable = ({data}: Props) => {
   const [globalFilter, setGlobalFilter] = useState("");
 
 
-  const columnHelper = createColumnHelper<LotteryDrawType>();
+  const columnHelper = createColumnHelper<LotteryDrawTicketType>();
 
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
@@ -46,59 +41,44 @@ const LotteryDrawTable = ({data}: Props) => {
         return <strong>{parseInt(row.id) + 1}</strong>;
       },
     }),
-    columnHelper.accessor("title", {
-      id: "title",
+    columnHelper.accessor("createdAt", {
+      id: "createdAt",
       footer: (info) => info.column.id,
-      header: ()=>'Draw Title',
+      header: ()=>'Date Played',
       cell: (info) => (
         <p className="max-w-[150px] truncate font-medium capitalize text-opacity-90">
           {info.getValue()}
         </p>
       ),
     }),
-    columnHelper.accessor("startDate", {
-      id: "startDate",
+    columnHelper.accessor("ticketNumber", {
+      id: "ticketNumber",
       footer: (info) => info.column.id,
-      header: () =>'Start Date',
+      header: () =>'Ticket Number',
       cell: (info) => (
         <p className="capitalize text-opacity-90">
           {info.getValue()}
         </p>
       ),
     }),
-    columnHelper.accessor("endDate", {
-      id:"endDate",
+    columnHelper.accessor("channel", {
+      id:"channel",
       footer: (info) => info.column.id,
-      header: () =>'End Date',
+      header: () =>'Channel',
       cell: (info) => (
         <p className="capitalize text-opacity-90">
           {info.getValue()}
         </p>
       ),
     }),
-    columnHelper.accessor("noOfPlayers", {
-      id: "noOfPlayers",
+    columnHelper.accessor("phoneNumber", {
+      id: "phoneNumber",
       footer: (info) => info.column.id,
       header: () =>'No of Players',
       cell: ({row}) => {
-        const { noOfPlayers } = row.original
-        return <p className="capitalize text-opacity-90">{noOfPlayers}</p>
+        const { phoneNumber } = row.original
+        return <p className="capitalize text-opacity-90">{phoneNumber}</p>
       },
-    }),
-
-    columnHelper.display({
-      id: "action",
-      cell: ({ row }) => {
-        const role = row.original;
-        return (
-          <>
-            <Link href={`/lottery/draw/${row?.id}`}>
-              <JPButton>Details</JPButton>
-            </Link>
-          </>
-        );
-      },
-      // size: 20,
     }),
   ];
 
@@ -130,4 +110,4 @@ const LotteryDrawTable = ({data}: Props) => {
   );
 };
 
-export default LotteryDrawTable;
+export default LotteryDrawTicketTable;

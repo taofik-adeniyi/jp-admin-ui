@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         roboto: ['var(--font-roboto)'],
+        rb: ['Roboto', 'sans-serif']
       },
       colors: {
         neutral: {
