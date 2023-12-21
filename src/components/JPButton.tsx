@@ -6,13 +6,14 @@ type Props = {
     classes?:string
     children:React.ReactNode
     onClick?: ()=>void
+    loading?:boolean
 }
 
 
 const JPButton = (props: Props) => {
-    const { children, classes,onClick, type="button" } = props
+    const { children, classes,onClick, loading=false, type="button" } = props
   return (
-    <button onClick={onClick} type={type} className={`py-2 px-3 rounded-md text-white text-base bg-[#131340] ${classes}`}>{children || "button"}</button>
+    <button disabled={loading} onClick={onClick} type={type} className={`py-2 px-3 disabled:cursor-not-allowed rounded-md text-white text-base bg-[#131340] ${classes}`}>{children || "button"}</button>
   )
 }
 

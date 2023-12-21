@@ -1,33 +1,6 @@
-import { LotteryDrawType, LotteryType, LotteryVoucherType } from "@/lib/types";
-
-export async function getLotteryData(): Promise<LotteryType[]> {
-    // Fetch data from your API here.
-    return [
-      {
-        plan: "skilled",
-        status: "in progress",
-        createdAt: "29/11/2023  2:00 PM",
-        noOfPlayers: 1000,
-        title: 'Christmas Bundle',
-      },
-      {
-        plan: "unskilled",
-        status: "in progress",
-        createdAt: "29/11/2023  2:00 PM",
-        noOfPlayers: 100,
-        title: 'Mega Bundle'
-      },
-      {
-        plan: "citizenship",
-        status: "completed",
-        createdAt: "29/11/2023  2:00 PM",
-        noOfPlayers: 4000,
-        title: 'Mega Bundle'
-      },
-
-      // ...
-    ];
-  }
+import { jpMiddleWare } from "@/lib/api";
+import { CreateLotteryType, LotteryDrawType, LotteryType, LotteryVoucherType } from "@/lib/types";
+import { AxiosError } from "axios";
 
   export async function getLotteryDrawData(): Promise<LotteryDrawType[]> {
     // Fetch data from your API here.
@@ -77,4 +50,22 @@ export async function getLotteryData(): Promise<LotteryType[]> {
         title: 'Mega Bundle',
       },
     ];
+  }
+
+  export const createLottery = async (body:CreateLotteryType) => {
+    try {
+      const res = await jpMiddleWare.post('/agent', body, )
+      return res
+    } catch (error:AxiosError|any) {
+      return error.response
+    }
+  }
+  export const getLotterys = async (): Promise<any | LotteryType[]> => {
+    try {
+      const res = await jpMiddleWare.get('/agent', {})
+      return res
+    } catch (error:AxiosError|any) {
+      return error.response
+      console.log("error fething agents:",error.response)
+    }
   }

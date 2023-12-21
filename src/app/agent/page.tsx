@@ -3,7 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import AgentHeaderExtra from "@/components/modules/agent/AgentHeaderExtra";
 import AgentTable from "@/components/modules/agent/AgentTable";
 import CreateAgent from "@/components/modules/agent/CreateAgent";
-import { getAgentData } from "@/services/agents";
+import { getAgents } from "@/services/agents";
 import React from "react";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Agent = async (props: Props) => {
-  const data = await getAgentData();
+  const agentsData = await getAgents()
   const { searchParams } = props;
   const show = searchParams?.show;
   return (
@@ -20,7 +20,7 @@ const Agent = async (props: Props) => {
         <>
         <PageHeader title="Agent" extra={<AgentHeaderExtra/>} />
       <div className="mt-10">
-        <AgentTable data={data} />
+        <AgentTable data={agentsData} />
       </div>
         </>
       )}

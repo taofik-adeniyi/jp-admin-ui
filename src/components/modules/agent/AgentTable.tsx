@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import {AgentType} from "@/lib/types"
+import { AgentType } from "@/lib/types";
 import StatusBadge from "@/components/StatusBadge";
 import { fuzzyFilter } from "@/lib/utils";
 type Props = {
@@ -23,10 +23,9 @@ type Props = {
   onSelectRole?: (role: any) => void;
 };
 
-
-const AgentTable = ({data}: Props) => {
+const AgentTable = ({ data }: Props) => {
   const [globalFilter, setGlobalFilter] = useState("");
-
+  console.log("data:", data);
   const columnHelper = createColumnHelper<AgentType>();
 
   const isMobile = useMediaQuery({
@@ -37,7 +36,7 @@ const AgentTable = ({data}: Props) => {
     columnHelper.accessor("agentCode", {
       id: "agentCode",
       footer: (info) => info.column.id,
-      header: ()=>'Agent Code',
+      header: () => "Agent Code",
       cell: (info) => (
         <p className="max-w-[150px] truncate font-medium capitalize text-opacity-90">
           {info.getValue()}
@@ -47,26 +46,24 @@ const AgentTable = ({data}: Props) => {
     columnHelper.accessor("name", {
       id: "plan",
       footer: (info) => info.column.id,
-      header: () =>'Plan',
+      header: () => "Plan",
       cell: (info) => (
-        <p className="capitalize text-opacity-90">
-          {info.getValue()}
-        </p>
+        <p className="capitalize text-opacity-90">{info.getValue()}</p>
       ),
     }),
     columnHelper.accessor("status", {
       id: "status",
       footer: (info) => info.column.id,
-      header: () =>'Status',
-      cell: ({row}) => {
-        const { status } = row.original
-        return <StatusBadge status={status} />
+      header: () => "Status",
+      cell: ({ row }) => {
+        const { status } = row.original;
+        return <StatusBadge status={'in active'} />;
       },
     }),
 
     columnHelper.display({
       id: "action",
-      header: () =>'Actions',
+      header: () => "Actions",
       cell: ({ row }) => {
         const role = row.original;
         return (

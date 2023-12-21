@@ -1,53 +1,100 @@
-"use client"
-import Input from '@/components/Input'
-import JPButton from '@/components/JPButton'
-import { useRouter } from 'next/navigation'
-import React from 'react'
+"use client";
+import JPButton from "@/components/JPButton";
+import JPInput from "@/components/JPInput";
+import { CreateLotteryType, LotteryType } from "@/lib/types";
+import { createLottery } from "@/services/lottery";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-type Props = {}
+type Props = {};
 
 const CreateLottery = (props: Props) => {
-  const router = useRouter()
+  const router = useRouter();
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm<CreateLotteryType>({
+    mode: "all",
+    defaultValues: {
+      title: "",
+      description: "",
+      image: "Password@1",
+      drawTime: "",
+      amount: undefined,
+    },
+  });
+  const onSubmit = async (values: CreateLotteryType) => {
+    const body = {
+      title: values.title,
+      description: values.description,
+      image: values.image,
+      drawTime: values.drawTime,
+      amount: values.amount,
+    };
+    const res = await createLottery(body);
+    console.log("res", res);
+    if (res.data.status == 201) {
+      toast.success("Agent created successfully");
+      // router.back()
+    }
+  };
   return (
     <div className="min-h-[calc(100vh-80px)] bg-white flex justify-center items-center">
-    <div className="mx-auto min-w-[514px] max-w-[514px] bg-white p-10 border rounded-md gap-6">
-      <Input label="Lottery Title" placeholder="Enter Lottery Title" />
-      <Input
-        label="Lottery Description"
-        placeholder="Enter Lottery Description"
-      />
-      <Input label="Amount" placeholder="Enter Amount" />
-      <div className="flex flex-col mb-5 mt-1">
-        <label className="mb-1 font-medium text-sm">Lottery Image</label>
-        
-        <div className="relative">
-          <div className="px-4 rounded-md w-full transition duration-300 text-xs bg-gray-100 py-4">Lottery Image</div>
-          <div className="absolute top-1/2 bg-[#E3E3E3] -translate-y-1/2 right-2 h-8 rounded-md flex items-center justify-center">
-            <div className=" bg-[#E3E3E3] p-2 text-sm w-full font-normal rounded-md text-[#7c7c7e]">
-              Upload image
+      <form onSubmit={handleSubmit(onSubmit)} className="mx-auto min-w-[514px] max-w-[514px] bg-white p-10 border rounded-md gap-6">
+        <JPInput
+          type="text"
+          {...register("title")}
+          error={errors?.title?.message!}
+          label="Lottery Title"
+          placeholder="Enter Lottery Title"
+        />
+        <JPInput
+          type="text"
+          {...register("description")}
+          error={errors?.description?.message!}
+          label="Lottery Description"
+          placeholder="Enter Lottery Description"
+        />
+
+        <JPInput
+          type="text"
+          {...register("amount")}
+          error={errors?.amount?.message!}
+          label="Amount"
+          placeholder="Enter Amount"
+        />
+
+        <div className="flex flex-col mb-5 mt-1">
+          <label className="mb-1 font-medium text-sm">Lottery Image</label>
+
+          <div className="relative">
+            <div className="px-4 rounded-md w-full transition duration-300 text-xs bg-gray-100 py-4">
+              Lottery Image
+            </div>
+            <div className="absolute top-1/2 bg-[#E3E3E3] -translate-y-1/2 right-2 h-8 rounded-md flex items-center justify-center">
+              <div className=" bg-[#E3E3E3] p-2 text-sm w-full font-normal rounded-md text-[#7c7c7e]">
+                Upload image
+              </div>
             </div>
           </div>
         </div>
         
-        {/* <div className="flex w-full justify-between mt-1">
-          <div className="text-sm flex-1 text-red-500 float-left"></div> //error
-          <div className="text-sm flex-1 flex justify-end float-right"><div className="rounded-sm bg-[#E3E3E3] p-2 font-normal text-[#7c7c7e]">Upload image</div></div> addon
-        </div> */}
-
-      </div>
-      <div className="flex justify-end gap-x-5">
-        <JPButton
-          type="button"
-          classes="text-primary-100 bg-neutral-100"
-          onClick={()=>router.back()}
-        >
-          Cancel
-        </JPButton>
-        <JPButton type="button">Create Lottery</JPButton>
-      </div>
+        <div className="flex justify-end gap-x-5">
+          <JPButton
+            type="button"
+            classes="text-primary-100 bg-neutral-100"
+            onClick={() => router.back()}
+          >
+            Cancel
+          </JPButton>
+          <JPButton type="button">Create Lottery</JPButton>
+        </div>
+      </form>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default CreateLottery
+export default CreateLottery;
