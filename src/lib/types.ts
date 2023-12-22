@@ -14,6 +14,7 @@ export type LotteryType = {
   title: string;
   noOfPlayers: number;
   id?: number;
+  _id?: number;
   amount: number,
   description: string
   image: string

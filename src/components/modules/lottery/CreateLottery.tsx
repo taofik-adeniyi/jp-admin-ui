@@ -4,7 +4,7 @@ import JPInput from "@/components/JPInput";
 import { CreateLotteryType, LotteryType } from "@/lib/types";
 import { createLottery } from "@/services/lottery";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -12,6 +12,7 @@ type Props = {};
 
 const CreateLottery = (props: Props) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false)
   const {
     formState: { errors },
     handleSubmit,
@@ -30,15 +31,20 @@ const CreateLottery = (props: Props) => {
     const body = {
       title: values.title,
       description: values.description,
-      image: values.image,
-      drawTime: values.drawTime,
+      image: "https://japaprize.com/wp-content/uploads/2023/10/JAPAPRIZE-1500-x-500-px-2.png",
+      drawTime: "1703862357" || values.drawTime,
       amount: values.amount,
     };
+    setIsLoading(true)
     const res = await createLottery(body);
+    setIsLoading(false)
+    if(res.status == 200){
+      toast.success('LOttery created success')
+    }
     console.log("res", res);
     if (res.data.status == 201) {
       toast.success("Agent created successfully");
-      // router.back()
+      router.back()
     }
   };
   return (
@@ -67,7 +73,7 @@ const CreateLottery = (props: Props) => {
           placeholder="Enter Amount"
         />
 
-        <div className="flex flex-col mb-5 mt-1">
+        {/* <div className="flex flex-col mb-5 mt-1">
           <label className="mb-1 font-medium text-sm">Lottery Image</label>
 
           <div className="relative">
@@ -80,7 +86,7 @@ const CreateLottery = (props: Props) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         
         <div className="flex justify-end gap-x-5">
           <JPButton
@@ -90,7 +96,7 @@ const CreateLottery = (props: Props) => {
           >
             Cancel
           </JPButton>
-          <JPButton type="button">Create Lottery</JPButton>
+          <JPButton loading={isLoading} type="submit">Create Lottery</JPButton>
         </div>
       </form>
     </div>

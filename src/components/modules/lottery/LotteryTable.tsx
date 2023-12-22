@@ -87,10 +87,10 @@ const LotteryTable = ({data}: Props) => {
     columnHelper.display({
       id: "action",
       cell: ({ row }) => {
-        const role = row.original;
+        const { _id } = row.original;
         return (
           <>
-            <Link href={`/lottery/${row?.id}`}>
+            <Link href={`/lottery/${_id}`}>
               <JPButton>View Lottery</JPButton>
             </Link>
           </>

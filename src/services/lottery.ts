@@ -54,7 +54,7 @@ import { AxiosError } from "axios";
 
   export const createLottery = async (body:CreateLotteryType) => {
     try {
-      const res = await jpMiddleWare.post('/agent', body, )
+      const res = await jpMiddleWare.post('/lottery', body, )
       return res
     } catch (error:AxiosError|any) {
       return error.response
@@ -62,8 +62,8 @@ import { AxiosError } from "axios";
   }
   export const getLotterys = async (): Promise<any | LotteryType[]> => {
     try {
-      const res = await jpMiddleWare.get('/agent', {})
-      return res
+      const res = await jpMiddleWare.get('/lottery')
+      return res.data
     } catch (error:AxiosError|any) {
       return error.response
       console.log("error fething agents:",error.response)

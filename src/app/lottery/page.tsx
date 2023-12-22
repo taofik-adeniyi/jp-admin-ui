@@ -13,6 +13,8 @@ const Lottery = async (props: Props) => {
   const { searchParams } = props;
   const show = searchParams?.show;
   const data = await getLotterys()
+  console.log("gotten lottry",data)
+  console.log("hey")
 
   return (
     <>
@@ -28,7 +30,7 @@ const Lottery = async (props: Props) => {
           </div>
 
           <div className="mt-10">
-            <LotteryTable data={data} />
+            <LotteryTable data={data?.data} />
           </div>
         </>
       )}

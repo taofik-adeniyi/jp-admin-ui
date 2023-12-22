@@ -2,6 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.no-draw-bottom-sheet {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
 /* 
 :root {
   --foreground-rgb: 0, 0, 0;
