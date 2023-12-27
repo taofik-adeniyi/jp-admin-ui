@@ -38,7 +38,7 @@ export const Select = ({
 
     return (
         <label
-            className={classNames("block mb-2", {
+            className={classNames("block mb-2 text-left", {
                 "pointer-events-none opacity-60": isDisabled,
             })}
         >

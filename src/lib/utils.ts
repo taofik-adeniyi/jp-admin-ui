@@ -1,7 +1,11 @@
+import { revalidateTag } from 'next/cache'
 import { rankItem } from "@tanstack/match-sorter-utils";
 import { FilterFn } from "@tanstack/react-table";
 import { format } from "date-fns";
 import moment from "moment-timezone";
+import { cache } from 'react'
+import { unstable_cache } from 'next/cache';
+import revalidateReq from './server-funcs';
 
 export const getUnixTime = (d:any) => {
     return Math.floor(new Date(d).getTime() / 1000);
@@ -65,3 +69,28 @@ export const currencyFormat = (currencyCode:string,countryCode="en-US") => {
         currency: currencyCode,
     });
 };
+
+
+
+
+
+// export const getItem = cache(async (id: string) => {
+//     let db: any;
+//     const item = await db.item.findUnique({ id })
+//     return item
+//   })
+
+//   const getCachedUser = unstable_cache(
+//     async (id) => getUser(id),
+//     ['my-app-user']
+//   );
+   
+//   export default async function Component({ userID }) {
+//     const user = await getCachedUser(userID);
+//     ...
+//   }
+
+// export const refetchLottery = () => {
+//     'use server'
+//     revalidateReq('fetch-lottery')
+// }

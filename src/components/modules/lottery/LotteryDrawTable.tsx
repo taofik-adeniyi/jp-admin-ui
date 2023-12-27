@@ -46,8 +46,8 @@ const LotteryDrawTable = ({data}: Props) => {
         return <strong>{parseInt(row.id) + 1}</strong>;
       },
     }),
-    columnHelper.accessor("title", {
-      id: "title",
+    columnHelper.accessor("name", {
+      id: "name",
       footer: (info) => info.column.id,
       header: ()=>'Draw Title',
       cell: (info) => (
@@ -82,10 +82,9 @@ const LotteryDrawTable = ({data}: Props) => {
       header: () =>'No of Players',
       cell: ({row}) => {
         const { noOfPlayers } = row.original
-        return <p className="capitalize text-opacity-90">{noOfPlayers}</p>
+        return <p className="capitalize text-opacity-90">N/A</p>
       },
     }),
-
     columnHelper.display({
       id: "action",
       cell: ({ row }) => {

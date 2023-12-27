@@ -8,9 +8,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-type Props = {};
+type Props = {
+  revalidateReq: ()=>void
+};
 
-const CreateLottery = (props: Props) => {
+const CreateLottery = ({revalidateReq}: Props) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false)
   const {
@@ -38,11 +40,15 @@ const CreateLottery = (props: Props) => {
     setIsLoading(true)
     const res = await createLottery(body);
     setIsLoading(false)
+    revalidateReq()
+    router.back()
     if(res.status == 200){
-      toast.success('LOttery created success')
+      toast.success('Lottery created success')
     }
+
     console.log("res", res);
     if (res.data.status == 201) {
+      // revalidatePath('/api/call')
       toast.success("Agent created successfully");
       router.back()
     }

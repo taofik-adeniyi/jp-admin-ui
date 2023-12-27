@@ -9,11 +9,11 @@ type Props = {
 };
 
 const routes = [
-  {
-    id: 1,
-    pathname: "/dashboard",
-    name: "dashboard",
-  },
+  // {
+  //   id: 1,
+  //   pathname: "/dashboard",
+  //   name: "dashboard",
+  // },
   {
     id: 2,
     pathname: "/agent",
@@ -24,11 +24,11 @@ const routes = [
     pathname: "/lottery",
     name: "lottery",
   },
-  {
-    id: 4,
-    pathname: "/voucher",
-    name: "voucher",
-  },
+  // {
+  //   id: 4,
+  //   pathname: "/voucher",
+  //   name: "voucher",
+  // },
   {
     id: 5,
     pathname: "/settings",
@@ -43,7 +43,7 @@ const PagesLayout = ({ children }: Props) => {
       <aside className="w-2/12 text-white bg-primary-100 flex flex-col justify-between">
         <div className="mt-20">
           <ul className="m-0 p-0 w-[236px] space-y-5 mx-auto">
-            {routes.slice(0, 4).map((route) => {
+            {routes.slice(0, 2).map((route) => {
               return (
                 <li key={route.id}>
                   <Link
@@ -59,9 +59,9 @@ const PagesLayout = ({ children }: Props) => {
                     />
                     <div
                       className={` rounded-md capitalize h-10 min-w-[194px] py-2 px-5 ${
-                        route.pathname == pathname &&
-                        "text-[#131340] bg-[#ECECF9] font-semibold"
-                      } text-white text-base font-roboto font-normal`}
+                        route.pathname == pathname ?
+                        "text-[#131340] bg-[#ECECF9] font-semibold":"text-white"
+                      } text-base font-roboto font-normal`}
                     >
                       {route.name}
                     </div>
@@ -74,9 +74,9 @@ const PagesLayout = ({ children }: Props) => {
 
         <div className="mb-20">
           <ul className="m-0 p-0 w-[236px] space-y-5 mx-auto">
-            <li>
+            {/* <li>
               <Link
-                href={routes[4].pathname}
+                href={routes[2].pathname}
                 className="flex justify-between items-center"
               >
                 <Image
@@ -88,14 +88,14 @@ const PagesLayout = ({ children }: Props) => {
                 />
                 <div
                   className={` rounded-md capitalize h-10 min-w-[194px] py-2 px-5 ${
-                    routes[4].pathname == pathname &&
+                    routes[2].pathname == pathname &&
                     "text-[#131340] bg-[#ECECF9] font-semibold"
                   } text-white text-base font-roboto font-normal`}
                 >
-                  {routes[4].name}
+                  {routes[2].name}
                 </div>
               </Link>
-            </li>
+            </li> */}
             <li  className="flex justify-between items-center">
               <Image
                 src={dashboardIcon}

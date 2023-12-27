@@ -1,12 +1,20 @@
 import LotteryDetail from '@/components/modules/lottery/LotteryDetail'
+import { getDraws } from '@/services/draw'
 import React from 'react'
 
-type Props = {}
+type Props = {
+  params: {
+    lotteryId:string
+  }
+}
 
-const LotteryDetails = (props: Props) => {
+const LotteryDetails = async (props: Props) => {
+  const { params: { lotteryId }} = props
+  const {data: drawData, error: drawDataError} = await getDraws()
+  console.log("drawData",drawData)
   return (
     <div>
-      <LotteryDetail />
+      <LotteryDetail drawData={drawData} lotteryId={lotteryId} />
     </div>
   )
 }

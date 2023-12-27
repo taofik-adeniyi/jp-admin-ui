@@ -6,37 +6,42 @@ import Draws from "./Draws";
 import Voucher from "./Voucher";
 import classNames from "classnames";
 
-type Props = {};
-
-const tabs = () => {
-  return [
-    {
-      id: "checkout-config",
-      head: (
-        <>
-          <p className="flex flex-row space-x-2 items-center pr-2 md:justify-center">
-            <span className="">Summary </span>
-          </p>
-        </>
-      ),
-      component: <Summary />,
-      tabIndex: 0,
-    },
-    {
-      id: "business",
-      head: "Draws",
-      component: <Draws />,
-      tabIndex: 1,
-    },
-    {
-      id: "api-key",
-      head: "Vouchers",
-      component: <Voucher />,
-      tabIndex: 2,
-    },
-  ];
+type Props = {
+  lotteryId:string
+  drawData:any
 };
+
+
 const LotteryDetail = (props: Props) => {
+  const { lotteryId, drawData } = props
+  const tabs = () => {
+    return [
+      // {
+      //   id: "checkout-config",
+      //   head: (
+      //     <>
+      //       <p className="flex flex-row space-x-2 items-center pr-2 md:justify-center">
+      //         <span className="">Summary </span>
+      //       </p>
+      //     </>
+      //   ),
+      //   component: <Summary />,
+      //   tabIndex: 0,
+      // },
+      {
+        id: "business",
+        head: "Draws",
+        component: <Draws data={drawData} lotteryId={lotteryId} />,
+        tabIndex: 0,
+      },
+      {
+        id: "api-key",
+        head: "Vouchers",
+        component: <Voucher />,
+        tabIndex: 1,
+      },
+    ];
+  };
   const [selectedTab, setSelectedTab] = useState(tabs()[0]);
 
   return (
@@ -48,15 +53,15 @@ const LotteryDetail = (props: Props) => {
         }
         as="div"
       >
-        <Tab.List className="sm:flex flex-row bg-white rounded border items-start mt-8 hidden">
+        <Tab.List className="sm:flex flex-row border-b-8 border-[#ECECF9] w-full space-x-96 items-start mt-8 hidden">
           {tabs().map((t) => (
             <Tab
               key={t.id}
               className={({ selected }) =>
                 classNames(
-                  "flex-1 py-3 w-full font-medium text-sm capitalize text-center hover:bg-slate-50 rounded transition-all duration-150 opacity-80",
+                  " py-3 min-w-52 font-medium text-sm capitalize text-left transition-all duration-150 opacity-80",
                   {
-                    "border-b-4 border-primary-500 bg-slate-100 opacity-100":
+                    "border-b-8 min-w-52 border-[#131340] absolute":
                       selected,
                   }
                 )

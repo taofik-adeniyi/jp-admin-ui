@@ -7,6 +7,15 @@
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
+.react-datepicker-popper {
+  z-index: 9999993333!important;
+}
+#my-popper {
+  z-index: 1000000 !important;
+}
+.react-datepicker-wrapper {
+  width: 100%!important;
+}
 /* 
 :root {
   --foreground-rgb: 0, 0, 0;

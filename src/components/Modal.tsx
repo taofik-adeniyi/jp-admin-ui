@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
 import { FiX } from "react-icons/fi";
+import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
 import { Portal } from "./Portal";
 import IconButton from "./IconButton";
@@ -65,7 +66,7 @@ export function Modal({
               animate="visible"
               exit="exit"
               className={classNames(
-                "w-full overflow-hidden mx-auto relative bg-red-400 justify-center items-center flex flex-col rounded-lg min-h-52",
+                "w-full overflow-hidden mx-auto relative bg-white border border-gray-800 shadow-lg z-50 justify-center items-center flex flex-col rounded-lg min-h-52",
                 {
                   "p-8": padding,
                   "max-w-3xl": size === "md",
@@ -73,17 +74,21 @@ export function Modal({
                 }
               )}
             >
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex w-full items-center justify-between mb-3">
                 {/* {!!title && <h3 className="text-xl font-semibold">{title}</h3>} */}
-                <h3 className="text-xl font-semibold">Modal</h3>
-                <IconButton
+                {/* <h3 className="text-xl font-semibold">Modal</h3> */}
+                <div></div>
+                {/* <IconButton
                   onClick={onClose}
                   rounded
-                  icon={<FiX />}
+                  icon={<IoMdClose />}
                   size="sm"
                   color="primary"
                   variant="outlined"
-                />
+                /> */}
+                <button type="button">
+                <IoMdClose />
+                </button>
               </div>
               {children}
             </motion.div>

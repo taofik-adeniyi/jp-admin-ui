@@ -1,6 +1,7 @@
 import { jpMiddleWare } from "@/lib/api";
 import { CreateLotteryType, LotteryDrawType, LotteryType, LotteryVoucherType } from "@/lib/types";
 import { AxiosError } from "axios";
+import { unstable_cache } from "next/cache";
 
   export async function getLotteryDrawData(): Promise<LotteryDrawType[]> {
     // Fetch data from your API here.
@@ -60,7 +61,7 @@ import { AxiosError } from "axios";
       return error.response
     }
   }
-  export const getLotterys = async (): Promise<any | LotteryType[]> => {
+  export const getLotterys = unstable_cache(async (): Promise<any | LotteryType[]> => {
     try {
       const res = await jpMiddleWare.get('/lottery')
       return res.data
@@ -68,4 +69,6 @@ import { AxiosError } from "axios";
       return error.response
       console.log("error fething agents:",error.response)
     }
-  }
+  },
+  ['fetch-lottery']
+  )

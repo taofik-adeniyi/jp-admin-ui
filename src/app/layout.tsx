@@ -4,6 +4,8 @@ import './globals.css'
 import 'simplebar-react/dist/simplebar.min.css';
 import { Toaster } from 'react-hot-toast';
 import { useMemo } from 'react';
+// import "react-datepicker/dist/react-datepicker.css";
+// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 // const roboto = Roboto({ subsets: ['cyrillic'] })
 const roboto = Roboto({ subsets: ['cyrillic'], weight: '400' })
@@ -25,8 +27,8 @@ export default function RootLayout({
         <title>Japa Prize</title>
       </head>
       <body className={roboto.className}>{children}
-      <div id="myportal" />
-      <div id="modals" />
+      <div id="myportal" className='z-50' />
+      <div id="modals" className='z-50' />
       <Toaster />
 
       </body>
