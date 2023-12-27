@@ -44,7 +44,7 @@ const CreateDraw = (props: Props) => {
       name: values.title,
       startDate: moment(values.from).unix(),
       endDate: moment(values.to).unix(),
-      drawDate: moment(values.drawDate).unix(),
+      // drawDate: moment(values.drawDate).unix(),
     };
     console.log("body", body);
     console.log("lotteryId", lotteryId);
@@ -150,7 +150,7 @@ const CreateDraw = (props: Props) => {
               }}
             />
           </div>
-          <div className="w-full">
+          {/* <div className="w-full">
             <Controller
               control={control}
               name="drawDate"
@@ -179,7 +179,7 @@ const CreateDraw = (props: Props) => {
                 );
               }}
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-16 mb-5">

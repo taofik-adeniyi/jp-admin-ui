@@ -17,20 +17,19 @@ import classNames from "classnames";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import {LotteryVoucherType} from "@/lib/types"
+import {VoucherCodeType} from "@/lib/types"
 import StatusBadge from "@/components/StatusBadge";
-import moment from "moment-timezone";
 type Props = {
-  data: LotteryVoucherType[];
+  data: VoucherCodeType[];
   onSelectRole?: (role: any) => void;
 };
 
 
-const LotteryVoucherTable = ({data}: Props) => {
+const VoucherCodeTable = ({data}: Props) => {
   const [globalFilter, setGlobalFilter] = useState("");
 
 
-  const columnHelper = createColumnHelper<LotteryVoucherType>();
+  const columnHelper = createColumnHelper<VoucherCodeType>();
 
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
@@ -46,52 +45,36 @@ const LotteryVoucherTable = ({data}: Props) => {
         return <strong>{parseInt(row.id) + 1}</strong>;
       },
     }),
-    columnHelper.accessor("tag", {
-      id: "tag",
-      footer: (info) => info.column.id,
-      header: ()=>'Tag',
-      cell: (info) => (
-        <p className="max-w-[150px] truncate font-medium capitalize text-opacity-90">
-          {info?.row?.original?.tag || 'N/A'}
-        </p>
-      ),
-    }),
     columnHelper.accessor("createdAt", {
       id: "createdAt",
       footer: (info) => info.column.id,
-      header: () =>'Date Generated',
-      cell: (info) => {
-        return (
-          <p className="capitalize text-opacity-90">
-            {moment(info?.row?.original?.createdAt).format("MM/DD/YYYY")}
-          </p>
-        )
-      },
+      header: ()=>'Created At',
+      size: 20,
+      cell: (info) => (
+        <p className="max-w-[150px] truncate font-medium capitalize text-opacity-90">
+          {info.getValue()}
+        </p>
+      ),
     }),
-    columnHelper.accessor("quantity", {
-      id:"quantity",
+    columnHelper.accessor("status", {
+        id: "status",
+        footer: (info) => info.column.id,
+        header: () =>'Status',
+        cell: (info) => (
+          <button type="button" className={`${info.getValue() == 'PENDING' ? 'bg-blue-500 text-white ': 'bg-green-500 text-white'} p-2 rounded-lg capitalize text-opacity-90`}>
+            {info.getValue()}
+          </button>
+        ),
+      }),
+    columnHelper.accessor("voucherCode", {
+      id: "voucherCode",
       footer: (info) => info.column.id,
-      header: () =>'Quantity',
+      header: () =>'Voucher Code',
       cell: (info) => (
         <p className="capitalize text-opacity-90">
           {info.getValue()}
         </p>
       ),
-    }),
-    columnHelper.display({
-      id: "action",
-      header: ()=> 'Actions',
-      cell: ({ row }) => {
-        const role = row.original;
-        return (
-          <>
-            <Link href={`/lottery/${row?.original?.lotteryId}/voucher/${row.original._id}`}>
-              <JPButton>Records</JPButton>
-            </Link>
-          </>
-        );
-      },
-      // size: 20,
     }),
   ];
 
@@ -123,4 +106,4 @@ const LotteryVoucherTable = ({data}: Props) => {
   );
 };
 
-export default LotteryVoucherTable;
+export default VoucherCodeTable;

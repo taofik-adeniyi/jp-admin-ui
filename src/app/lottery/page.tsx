@@ -17,8 +17,8 @@ const Lottery = async (props: Props) => {
   const { searchParams } = props;
   const show = searchParams?.show;
   const data = await getLotterys()
-  console.log("gotten lottry",data)
-  console.log("hey")
+  // console.log("gotten lottry",data)
+  // console.log("hey")
   // const router = useRouter()
 
  

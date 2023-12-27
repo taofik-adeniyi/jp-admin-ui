@@ -8,12 +8,13 @@ import classNames from "classnames";
 
 type Props = {
   lotteryId:string
-  drawData:any
+  drawData:any;
+  voucherData:any
 };
 
 
 const LotteryDetail = (props: Props) => {
-  const { lotteryId, drawData } = props
+  const { lotteryId, drawData, voucherData } = props
   const tabs = () => {
     return [
       // {
@@ -37,7 +38,7 @@ const LotteryDetail = (props: Props) => {
       {
         id: "api-key",
         head: "Vouchers",
-        component: <Voucher />,
+        component: <Voucher voucherData={voucherData} lotterryId={lotteryId}  />,
         tabIndex: 1,
       },
     ];

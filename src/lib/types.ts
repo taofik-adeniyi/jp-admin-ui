@@ -32,6 +32,11 @@ export type LotteryDrawType = {
   endDate: string;
   drawDate:string
 };
+export type VoucherCodeType = {
+  createdAt: string;
+  status:string;
+  voucherCode:string
+};
 export type LotteryDrawTicketType = {
   createdAt: string;
   ticketNumber: string;
@@ -41,13 +46,17 @@ export type LotteryDrawTicketType = {
 export type LotteryVoucherType = {
   title: string;
   dateGenerated: string;
+  createdAt: Date | string | number
   quantity: string;
+  _id:string
+  lotteryId:string
+  tag:string
 };
 export type CreateDrawType = {
   title:string;
   from:number;
   to:number;
-  drawDate:number
+  drawDate?:number
 }
 export type AgentType = {
   agentCode: string;
@@ -87,6 +96,9 @@ export type CreateLotteryType = {
 export type inputRef = typeof createRef<HTMLInputElement>;
 
 export type CreateVoucherType = {
-  tag: "skilled" | "unskilled" | "citizenship",
+  tag: {
+    value: "skilled" | "unskilled" | "citizenship"
+    label: string
+  },
   quantity: number
 }

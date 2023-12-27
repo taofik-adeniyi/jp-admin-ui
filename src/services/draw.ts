@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 
 
 
-export const createDraw = async (body:{name:string,startDate:number,endDate:number,drawDate:number}) => {
+export const createDraw = async (body:{name:string,startDate:number,endDate:number,drawDate?:number}) => {
   try {
     const res = await jpMiddleWare.post('/draw', body)
     return {data:res}
@@ -22,12 +22,11 @@ export const attachDrawToLottery = async (lotteryId:string,drawId:string) => {
     return {error: error.response}
   }
 }
-export const getDraws = async (): Promise<any | AgentType[]> => {
+export const getDraws = async (): Promise<any> => {
   try {
     const res = await jpMiddleWare.get('/draw', {})
     return {data:res}
   } catch (error:AxiosError|any) {
-    console.log("error fething agents:",error.response)
     return {error: error.response}
   }
 }

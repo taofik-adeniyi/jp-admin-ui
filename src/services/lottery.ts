@@ -3,35 +3,6 @@ import { CreateLotteryType, LotteryDrawType, LotteryType, LotteryVoucherType } f
 import { AxiosError } from "axios";
 import { unstable_cache } from "next/cache";
 
-  export async function getLotteryDrawData(): Promise<LotteryDrawType[]> {
-    // Fetch data from your API here.
-    return [
-      {
-        startDate: '29/11/2023  2:00 PM',
-        endDate: '04/12/2023  2:00 PM',
-        createdAt: "29/11/2023  2:00 PM",
-        noOfPlayers: 1000,
-        title: 'Awoof',
-      },
-      {
-        startDate: '29/11/2023  2:00 PM',
-        endDate: '04/12/2023  2:00 PM',
-        createdAt: "29/11/2023  2:00 PM",
-        noOfPlayers: 1000,
-        title: 'Level up',
-      },
-      {
-        startDate: '29/11/2023  2:00 PM',
-        endDate: '04/12/2023  2:00 PM',
-        createdAt: "29/11/2023  2:00 PM",
-        noOfPlayers: 4000,
-        title: 'Shine Shine bobo',
-      },
-
-      // ...
-    ];
-  }
-
   export async function getLotteryVoucherData(): Promise<LotteryVoucherType[]> {
     // Fetch data from your API here.
     return [
@@ -67,7 +38,6 @@ import { unstable_cache } from "next/cache";
       return res.data
     } catch (error:AxiosError|any) {
       return error.response
-      console.log("error fething agents:",error.response)
     }
   },
   ['fetch-lottery']
