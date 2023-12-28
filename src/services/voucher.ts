@@ -29,10 +29,27 @@ export const createVoucher = async (body:{lotteryId:string,quantity: number,tag:
       return {error: error.response}
     }
   }
+  export const getVoucherCodesByLotteryId = async (lotteryId:string): Promise<any> => {
+    console.log("lotteryId>>>",lotteryId)
+    try {
+      const res = await jpMiddleWare.get(`/voucher-code/lottery/${lotteryId}`, {})
+      return {data:res}
+    } catch (error:AxiosError|any) {
+      return {error: error.response}
+    }
+  }
   export const getVouchers = async (): Promise<any | AgentType[]> => {
     try {
       const res = await jpMiddleWare.get('/voucher', {})
       return {data:res}
+    } catch (error:AxiosError|any) {
+      return {error: error.response}
+    }
+  }
+  export const getVouchersByLotteryId = async (lotteryId:string): Promise<{data?:any,error?:any}> => {
+    try {
+      const res = await jpMiddleWare.get(`/voucher/lottery/${lotteryId}`, {})
+      return {data:res?.data}
     } catch (error:AxiosError|any) {
       return {error: error.response}
     }

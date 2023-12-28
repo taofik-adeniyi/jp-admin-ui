@@ -25,9 +25,12 @@ const Agent = async (props: Props) => {
         </>
       )}
       {show && (
-        <div className="flex items-center justify-center mt-14">
+        <>
+          <h1 className="my-4 text-[#7C7C7E] text-sm">Provide the following information to create an agent space</h1>
+        <div className="flex items-center justify-center mt-4">
           <CreateAgent />
         </div>
+        </>
       )}
     </>
   );

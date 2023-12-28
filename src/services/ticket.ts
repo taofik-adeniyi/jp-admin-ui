@@ -1,26 +1,15 @@
+import { jpMiddleWare } from "@/lib/api";
 import { LotteryDrawTicketType } from "@/lib/types";
+import { AxiosError } from "axios";
 
-export const getTicketDataByDraw = async (): Promise<
-  LotteryDrawTicketType[]
-> => {
-  return [
-    {
-      createdAt: "21/08/2023 12:58pm",
-      channel: "web",
-      ticketNumber: "AGT-101-89",
-      phoneNumber: "0818906576",
-    },
-    {
-        createdAt: "21/08/2023 12:58pm",
-        channel: "voucher",
-        ticketNumber: "AGT-101-79",
-        phoneNumber: "0818906576",
-      },
-      {
-        createdAt: "21/08/2023 12:58pm",
-        channel: "web",
-        ticketNumber: "AGT-101-90",
-        phoneNumber: "0818906576",
-      },
-  ];
-};
+
+
+export const fetchTicketsByDrawId = async (drawId:string) => {
+  console.log("fetching....",drawId)
+  try {
+   const res = await jpMiddleWare.get(`/ticket/draw/${drawId}`)
+   return {data:res?.data}
+  } catch (error:AxiosError|any) {
+    return {error: error?.response}
+  }
+}

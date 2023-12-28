@@ -27,7 +27,7 @@ type Props = {
 
 const LotteryTable = ({data}: Props) => {
   const [globalFilter, setGlobalFilter] = useState("");
-
+console.log("data>>>>",data)
   const columnHelper = createColumnHelper<LotteryType>();
 
   const isMobile = useMediaQuery({

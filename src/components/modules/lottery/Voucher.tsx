@@ -1,7 +1,6 @@
 import JPButton from "@/components/JPButton";
 import React, { useEffect, useState } from "react";
 import LotteryVoucherTable from "./LotteryVoucherTable";
-import { getLotteryVoucherData } from "@/services/lottery";
 import { Modal } from "@/components/Modal";
 import CreateVoucher from "../voucher/CreateVoucher";
 

@@ -38,10 +38,38 @@ export type VoucherCodeType = {
   voucherCode:string
 };
 export type LotteryDrawTicketType = {
+  id:number;
   createdAt: string;
   ticketNumber: string;
   channel: string;
   phoneNumber: string;
+    _id: string
+    agent: {
+        id: string
+        name: string
+        agentCode: string
+    },
+    prize: 2000,
+    player: {
+        phoneNumber: string
+    },
+    draw: {
+        drawDate: null,
+        _id: string
+        startDate: number,
+        endDate: number,
+        name: string
+        createdAt: string
+        updatedAt: string
+    },
+    voucher: {
+        id: string
+        voucherCode: string
+    },
+    lottery: {
+        id: string
+    },
+    updatedAt: string
 };
 export type LotteryVoucherType = {
   title: string;
@@ -67,6 +95,7 @@ export type AgentType = {
   roleId: string,
   createdAt: string,
   updatedAt: string,
+  _id:string
 };
 export type statusBadgeType =
   | "in progress"
@@ -81,6 +110,12 @@ export enum ROLES {
 }
 export type CreateAgentType = {
   name: string;
+  firstName:string;
+  lastName:string;
+  gender:string;
+  state:any;
+  lga:any
+  dob:string | any
   phoneNumber: string;
   roleId: ROLES.AGENT;
   password: string;

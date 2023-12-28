@@ -19,7 +19,6 @@ import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import {LotteryDrawType} from "@/lib/types"
 import StatusBadge from "@/components/StatusBadge";
-import { getLotteryDrawData } from "@/services/lottery";
 type Props = {
   data: LotteryDrawType[];
   onSelectRole?: (role: any) => void;
@@ -91,7 +90,7 @@ const LotteryDrawTable = ({data}: Props) => {
         const role = row.original;
         return (
           <>
-            <Link href={`/lottery/draw/${row?.id}`}>
+            <Link href={`/lottery/draw/${role?._id}`}>
               <JPButton>Details</JPButton>
             </Link>
           </>

@@ -3,26 +3,6 @@ import { CreateLotteryType, LotteryDrawType, LotteryType, LotteryVoucherType } f
 import { AxiosError } from "axios";
 import { unstable_cache } from "next/cache";
 
-  export async function getLotteryVoucherData(): Promise<LotteryVoucherType[]> {
-    // Fetch data from your API here.
-    return [
-      {
-        dateGenerated: "21/08/2023 12:58pm",
-        quantity: '50',
-        title: 'Christmas Bundle',
-      },
-      {
-        dateGenerated: '21/08/2023 12:58pm',
-        quantity: '100',
-        title: 'New year',
-      },
-      {
-        dateGenerated: '21/08/2023 12:58pm',
-        quantity: '150',
-        title: 'Mega Bundle',
-      },
-    ];
-  }
 
   export const createLottery = async (body:CreateLotteryType) => {
     try {
@@ -32,13 +12,12 @@ import { unstable_cache } from "next/cache";
       return error.response
     }
   }
-  export const getLotterys = unstable_cache(async (): Promise<any | LotteryType[]> => {
+  export const getLotterys = async (): Promise<any | LotteryType[]> => {
     try {
       const res = await jpMiddleWare.get('/lottery')
       return res.data
     } catch (error:AxiosError|any) {
       return error.response
     }
-  },
-  ['fetch-lottery']
-  )
+  }
+  

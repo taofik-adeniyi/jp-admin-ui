@@ -64,7 +64,7 @@ const CreateLottery = ({revalidateReq}: Props) => {
           placeholder="Enter Lottery Title"
         />
         <JPInput
-          type="text"
+          type="textarea"
           {...register("description")}
           error={errors?.description?.message!}
           label="Lottery Description"

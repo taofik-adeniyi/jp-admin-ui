@@ -5,13 +5,13 @@ import { Modal } from "@/components/Modal";
 import CreateDraw from "../draw/CreateDraw";
 
 type Props = {
-  lotteryId:string
-  data:any
+  lotteryId: string;
+  data: any;
 };
 
 const Draws = (props: Props) => {
-  const { lotteryId,data } = props
-  console.log("data::::",data)
+  const { lotteryId, data } = props;
+  console.log("data::::", data);
   const [isCreateDrawOpen, setIsCreateDrawOpen] = useState(false);
   const handleCreateDraw = () => setIsCreateDrawOpen(!isCreateDrawOpen);
 
@@ -20,13 +20,14 @@ const Draws = (props: Props) => {
       <div className="flex justify-end">
         <JPButton onClick={handleCreateDraw}>Create Draw</JPButton>
       </div>
-      <LotteryDrawTable 
-      // data={drawData} 
-      data={data}
-      />
+      <LotteryDrawTable data={data} />
+
       {isCreateDrawOpen && (
         <Modal isOpen={isCreateDrawOpen} onClose={handleCreateDraw}>
-          <CreateDraw onClose={()=>setIsCreateDrawOpen(!isCreateDrawOpen)} lotteryId={lotteryId} />
+          <CreateDraw
+            onClose={() => setIsCreateDrawOpen(!isCreateDrawOpen)}
+            lotteryId={lotteryId}
+          />
         </Modal>
       )}
     </div>

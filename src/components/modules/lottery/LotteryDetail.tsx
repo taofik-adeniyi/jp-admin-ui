@@ -30,13 +30,13 @@ const LotteryDetail = (props: Props) => {
       //   tabIndex: 0,
       // },
       {
-        id: "business",
+        id: "draws",
         head: "Draws",
         component: <Draws data={drawData} lotteryId={lotteryId} />,
         tabIndex: 0,
       },
       {
-        id: "api-key",
+        id: "vouchers",
         head: "Vouchers",
         component: <Voucher voucherData={voucherData} lotterryId={lotteryId}  />,
         tabIndex: 1,

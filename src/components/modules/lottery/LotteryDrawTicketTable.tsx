@@ -15,6 +15,9 @@ import {
 import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import {LotteryDrawTicketType} from "@/lib/types"
+import Link from "next/link";
+import JPButton from "@/components/JPButton";
+import moment from "moment-timezone";
 type Props = {
   data: LotteryDrawTicketType[];
   onSelectRole?: (role: any) => void;
@@ -23,6 +26,7 @@ type Props = {
 
 const LotteryDrawTicketTable = ({data}: Props) => {
   const [globalFilter, setGlobalFilter] = useState("");
+  console.log("weeee",data)
 
 
   const columnHelper = createColumnHelper<LotteryDrawTicketType>();
@@ -47,37 +51,48 @@ const LotteryDrawTicketTable = ({data}: Props) => {
       header: ()=>'Date Played',
       cell: (info) => (
         <p className="max-w-[150px] truncate font-medium capitalize text-opacity-90">
-          {info.getValue()}
+          {moment(info.getValue()).format("MM/DD/YYYY hh:mm:A")}
         </p>
       ),
     }),
-    columnHelper.accessor("ticketNumber", {
+    columnHelper.display({
       id: "ticketNumber",
-      footer: (info) => info.column.id,
       header: () =>'Ticket Number',
-      cell: (info) => (
-        <p className="capitalize text-opacity-90">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-    columnHelper.accessor("channel", {
-      id:"channel",
-      footer: (info) => info.column.id,
-      header: () =>'Channel',
-      cell: (info) => (
-        <p className="capitalize text-opacity-90">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-    columnHelper.accessor("phoneNumber", {
-      id: "phoneNumber",
-      footer: (info) => info.column.id,
-      header: () =>'No of Players',
       cell: ({row}) => {
-        const { phoneNumber } = row.original
-        return <p className="capitalize text-opacity-90">{phoneNumber}</p>
+        const ticker = row.original
+        const ticketNumber = `${ticker?.agent?.name?.[0]}-${parseInt(row?.id)+1}${ticker._id}`
+        return (
+          <p className="capitalize text-opacity-90">
+            {ticketNumber}
+            {/* {ticker.id} */}
+          </p>
+        )
+      },
+    }),
+    columnHelper.accessor("agent", {
+      id:"agent",
+      footer: (info) => info.column.id,
+      header: () =>'Agent Name',
+      cell: ({row}) => {
+        const agentName = row?.original?.agent?.name
+        return (
+          <p className="capitalize text-opacity-90">
+           {agentName}
+          </p>
+        )
+      },
+    }),
+    columnHelper.display({
+      id: "action",
+      cell: ({ row }) => {
+        const role = row.original;
+        return (
+          <>
+            {/* <Link href={`/lottery/draw/${role?._id}`}> */}
+              <JPButton>View Details</JPButton>
+            {/* </Link> */}
+          </>
+        );
       },
     }),
   ];

@@ -30,6 +30,14 @@ export const getDraws = async (): Promise<any> => {
     return {error: error.response}
   }
 }
+export const getDrawsByLotteryId = async (lotteryId:string): Promise<any> => {
+  try {
+    const res = await jpMiddleWare.get(`/draw/lottery/${lotteryId}`)
+    return {data:res.data}
+  } catch (error:AxiosError|any) {
+    return {error: error.response}
+  }
+}
 export const getSingleDraws = async (id:number): Promise<any | AgentType[]> => {
     try {
       const res = await jpMiddleWare.get(`/draw/${id}`, {})

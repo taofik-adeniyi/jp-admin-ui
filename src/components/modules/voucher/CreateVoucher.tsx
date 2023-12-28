@@ -61,18 +61,20 @@ const CreateVoucher = (props: Props) => {
     }
     if(data && data?.status === 201){
       console.log("creating voucher",data)
-    }
-
-    const { data:codeData, error: codeError } = await createVoucherCodes({...voucherBody, voucherId: data?.data?.voucher?._id})
-
-    if(codeData && codeData?.status === 201){
-      console.log("codeData",codeData)
-      toast.success("Voucher code created successfully")
+      toast.success("Voucher and Voucher code created successfully")
       onClose()
     }
-    if(codeError){
-      console.log("codeError",codeError)
-    }
+
+    // const { data:codeData, error: codeError } = await createVoucherCodes({...voucherBody, voucherId: data?.data?.voucher?._id})
+
+    // if(codeData && codeData?.status === 201){
+    //   console.log("codeData",codeData)
+    //   toast.success("Voucher code created successfully")
+    //   onClose()
+    // }
+    // if(codeError){
+    //   console.log("codeError",codeError)
+    // }
   }
   console.log("errors",{errors})
   return (
