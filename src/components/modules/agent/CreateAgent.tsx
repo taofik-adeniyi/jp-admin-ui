@@ -5,19 +5,20 @@ import JPInput from "@/components/JPInput";
 import { Select } from "@/components/Select";
 import { CreateAgentType, ROLES } from "@/lib/types";
 import { createAgent } from "@/services/agents";
+import moment from "moment";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast";
 type Props = {};
 
 const CreateAgent = (props: Props) => {
-  const router = useRouter()
+  const router = useRouter();
   const {
     formState: { errors },
     handleSubmit,
     control,
-    register
+    register,
   } = useForm<CreateAgentType>({
     mode: "all",
     defaultValues: {
@@ -25,14 +26,22 @@ const CreateAgent = (props: Props) => {
       phoneNumber: "",
       password: "Password@1",
       email: "",
+      state: "",
+      lga: "",
     },
   });
   const onSubmit = async (values: CreateAgentType) => {
-    const res = await createAgent({...values, roleId: ROLES.AGENT});
-    console.log("res",res)
-    if(res.data.status == 201){
-      toast.success("Agent created successfully")
-      router.back()
+    const body = {
+      ...values,
+      gender: values.gender?.value,
+      name: values.firstName + " " + values.lastName,
+      dob: moment(values.dob).unix()
+    }
+    const res = await createAgent({ ...body, roleId: ROLES.AGENT });
+    console.log("res", res);
+    if (res.data.status == 201) {
+      toast.success("Agent created successfully");
+      router.back();
     }
   };
   return (
@@ -43,14 +52,24 @@ const CreateAgent = (props: Props) => {
       >
         <div className="flex flex-col space-y-3">
           <JPInput
-          {...register("firstName")}
+            {...register("firstName", {
+              required: {
+                value: true,
+                message: "First Name is required",
+              },
+            })}
             error={errors?.firstName?.message!}
             label="First Name"
             placeholder="Enter first name"
             type="text"
           />
           <JPInput
-            {...register("lastName")}
+            {...register("lastName", {
+              required: {
+                value: true,
+                message: "Last Name is required",
+              },
+            })}
             error={errors?.lastName?.message!}
             label="Last Name"
             placeholder="Enter last name"
@@ -58,48 +77,59 @@ const CreateAgent = (props: Props) => {
           />
           <div className="flex justify-between gap-x-5">
             <div className="flex-1">
-            <Controller
-              control={control}
-              name="dob"
-              rules={{
-                required: {
-                  value: true,
-                  message: "Date of Birth is required",
-                },
-              }}
-              render={({ field }) => {
-                return (
-                  <JPDatePicker onChange={field.onChange} value={field.value} label="Date of Birth" selectedDate={field.value!} error={errors?.dob?.message} />
-                  )
-              }}
-            />
+              <Controller
+                control={control}
+                name="dob"
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Date of Birth is required",
+                  },
+                }}
+                render={({ field }) => {
+                  return (
+                    <JPDatePicker
+                      onChange={field.onChange}
+                      value={field.value}
+                      label="Date of Birth"
+                      selectedDate={field.value!}
+                      error={errors?.dob?.message}
+                    />
+                  );
+                }}
+              />
             </div>
-          
-           <div className="flex-1">
-           <Controller 
-            control={control}
-            name="gender"
-            rules={{
-              required: {
-                value: true,
-                message: "Gender is required",
-              },
-            }}
-            render={({field}) => {
-              return (
-                <Select
-                onChange={field.onChange}
-                value={field.value} 
-                placeholder="Gender"
-                label="Gender"
-                options={[{value: 'male', label: 'Male'},{value: 'female', label: 'Female'}]}
-                />
-              )
-            }}
-            />
-           </div>
+
+            <div className="flex-1">
+              <Controller
+                control={control}
+                name="gender"
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Gender is required",
+                  },
+                }}
+                render={({ field }) => {
+                  return (
+                    <Select
+                      onChange={field.onChange}
+                      value={field.value}
+                      placeholder="Gender"
+                      label="Gender"
+                      // @ts-ignore
+                      error={errors.gender?.message}
+                      options={[
+                        { value: "male", label: "Male" },
+                        { value: "female", label: "Female" },
+                      ]}
+                    />
+                  );
+                }}
+              />
+            </div>
           </div>
-          <Controller 
+          {/* <Controller 
             control={control}
             name="state"
             render={({field}) => {
@@ -113,8 +143,22 @@ const CreateAgent = (props: Props) => {
                 />
               )
             }}
-            />
-              <Controller 
+            /> */}
+
+          <JPInput
+            {...register("state", {
+              required: {
+                value: true,
+                message: "State is required",
+              },
+            })}
+            // @ts-ignore
+            error={errors.state?.message!}
+            label="State"
+            placeholder="State"
+            type="text"
+          />
+          {/* <Controller 
             control={control}
             name="lga"
             render={({field}) => {
@@ -128,16 +172,39 @@ const CreateAgent = (props: Props) => {
                 />
               )
             }}
-            />
+            /> */}
           <JPInput
-            {...register("phoneNumber")}
+            {...register("lga", {
+              required: {
+                value: true,
+                message: "LGA is required",
+              },
+            })}
+            // @ts-ignore
+            error={errors.lga?.message!}
+            label="LGA"
+            placeholder="LGA"
+            type="text"
+          />
+          <JPInput
+            {...register("phoneNumber",{
+              required: {
+                value: true,
+                message: "Phone Number is required",
+              },
+            })}
             error={errors?.phoneNumber?.message!}
             label="Phone Number"
             placeholder="Enter phone number"
             type="text"
           />
-                    <JPInput
-          {...register("email")}
+          <JPInput
+            {...register("email",{
+              required: {
+                value: true,
+                message: "Email is required",
+              },
+            })}
             error={errors?.email?.message!}
             label="Email Address"
             placeholder="Enter email address"
@@ -146,7 +213,9 @@ const CreateAgent = (props: Props) => {
         </div>
 
         <div className="mt-8 mb-5">
-          <JPButton type="submit" classes="w-full py-4 text-lg">Create Agent</JPButton>
+          <JPButton type="submit" classes="w-full py-4 text-lg">
+            Create Agent
+          </JPButton>
         </div>
       </form>
     </div>

@@ -112,9 +112,9 @@ export type CreateAgentType = {
   name: string;
   firstName:string;
   lastName:string;
-  gender:string;
-  state:any;
-  lga:any
+  gender:string|any;
+  state: string | any;
+  lga:string | any 
   dob:string | any
   phoneNumber: string;
   roleId: ROLES.AGENT;
