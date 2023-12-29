@@ -137,3 +137,8 @@ export type CreateVoucherType = {
   },
   quantity: number
 }
+export type TicketType = {
+  createdAt:Date | string | number
+  _id:string
+  ticketId:string
+}
