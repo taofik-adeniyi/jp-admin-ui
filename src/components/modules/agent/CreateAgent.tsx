@@ -37,6 +37,8 @@ const CreateAgent = (props: Props) => {
       name: values.firstName + " " + values.lastName,
       dob: moment(values.dob).unix()
     }
+    console.log("body",body)
+    return
     const res = await createAgent({ ...body, roleId: ROLES.AGENT });
     console.log("res", res);
     if (res.data.status == 201) {
