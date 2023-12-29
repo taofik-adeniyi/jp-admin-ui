@@ -2,6 +2,7 @@ import Button from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import JPButton from "@/components/JPButton";
+import JPInput from "@/components/JPInput";
 import JPSelect from "@/components/JPSelect";
 import { Select } from "@/components/Select";
 import { CreateVoucherType } from "@/lib/types";
@@ -45,7 +46,7 @@ const CreateVoucher = (props: Props) => {
     mode: "all",
     defaultValues: {
       quantity: undefined,
-      tag: {label: undefined,value:undefined}
+      tag: ""
     },
   });
   const onSubmit = async (values:CreateVoucherType) => {
@@ -53,7 +54,7 @@ const CreateVoucher = (props: Props) => {
     const voucherBody = {
       lotteryId: lotteryId,
       quantity: values.quantity,
-      tag: values.tag?.value
+      tag: values.tag 
     }
     const { data, error } = await createVoucher(voucherBody)
     if(error){
@@ -88,7 +89,7 @@ const CreateVoucher = (props: Props) => {
         <div className="flex flex-col space-y-3">
 
 
-            <Controller 
+            {/* <Controller 
             name="tag"
             control={control}
               render={({field}) => {
@@ -104,6 +105,19 @@ const CreateVoucher = (props: Props) => {
                   />
                 )
               }}
+            /> */}
+
+            <JPInput 
+            error={errors.tag?.message!} 
+            label={"Tag"} 
+            placeholder={"Tag"} 
+            type={"text"}
+            {...register("tag", {
+              required: {
+                value: true,
+                message: 'Tag is required'
+              }
+            })}            
             />
           <div className="w-full flex flex-col items-start mb-2">
             <label>Quantity</label>

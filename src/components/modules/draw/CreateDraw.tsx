@@ -186,7 +186,7 @@ const CreateDraw = (props: Props) => {
 
         <div className="mt-16 mb-5">
           <JPButton type="submit" classes="w-full py-4 text-lg">
-            Generate Draws
+            Generate Draw
           </JPButton>
         </div>
       </form>

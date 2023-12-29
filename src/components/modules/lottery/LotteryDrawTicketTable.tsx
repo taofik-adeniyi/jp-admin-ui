@@ -60,11 +60,11 @@ const LotteryDrawTicketTable = ({data}: Props) => {
       header: () =>'Ticket Number',
       cell: ({row}) => {
         const ticker = row.original
-        const ticketNumber = `${ticker?.agent?.name?.[0]}-${parseInt(row?.id)+1}${ticker._id}`
+        // const ticketNumber = `${ticker?.agent?.name?.[0]}-${parseInt(row?.id)+1}${ticker._id}`
+        const ticketNumber = `${ticker._id}`
         return (
           <p className="capitalize text-opacity-90">
             {ticketNumber}
-            {/* {ticker.id} */}
           </p>
         )
       },

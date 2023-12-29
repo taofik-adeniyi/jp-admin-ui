@@ -30,7 +30,7 @@ const LotteryDrawDetail = async (props: Props) => {
                 <Image priority src="/drawplaceholderlogo.png" width={70} height={70} alt="Draw title"  />
                 <div className='space-y-4'>
                     <h2 className='text-[#2F2F30]'>Awoof</h2>
-                    <p className='m-0 p-0 font-roboto text-[#2F2F30] text-base'>Created by <b>Admin</b> | 14 Aug, 2023 • 01:33:20 pm • <b>2000 in stock</b></p>
+                    {/* <p className='m-0 p-0 font-roboto text-[#2F2F30] text-base'>Created by <b>Admin</b> | 14 Aug, 2023 • 01:33:20 pm • <b>2000 in stock</b></p> */}
                 </div>
             </div>
         </div>
