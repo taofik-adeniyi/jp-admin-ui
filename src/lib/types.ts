@@ -131,10 +131,11 @@ export type CreateLotteryType = {
 export type inputRef = typeof createRef<HTMLInputElement>;
 
 export type CreateVoucherType = {
-  tag: {
-    value: "skilled" | "unskilled" | "citizenship"
-    label: string
-  },
+  // tag: {
+  //   value: "skilled" | "unskilled" | "citizenship"
+  //   label: string
+  // },
+  tag: string
   quantity: number
 }
 export type TicketType = {
