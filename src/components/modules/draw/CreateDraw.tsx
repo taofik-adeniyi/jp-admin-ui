@@ -107,6 +107,7 @@ const CreateDraw = (props: Props) => {
                   <div className="w-full flex flex-col">
                     <label className="text-left">Start Date</label>
                     <DatePicker
+                    // @ts-ignore
                       selected={field.value}
                       onChange={field.onChange}
                       minDate={new Date()}
@@ -135,6 +136,7 @@ const CreateDraw = (props: Props) => {
                   <div className="w-full flex flex-col">
                     <label className="text-left">End Date</label>
                     <DatePicker
+                    // @ts-ignore
                       selected={field.value}
                       minDate={new Date()}
                       onChange={field.onChange}

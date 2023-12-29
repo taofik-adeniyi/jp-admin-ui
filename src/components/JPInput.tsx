@@ -61,6 +61,7 @@ const JPInput = forwardRef<inputRef, Props>(
   />
         )}
         {type == "textarea" && (
+          // @ts-ignore
           <textarea 
           {...props}
           ref={ref as any}
@@ -73,5 +74,6 @@ const JPInput = forwardRef<inputRef, Props>(
     );
   }
 );
+JPInput.displayName = "JPInput"
 
 export default JPInput;

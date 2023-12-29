@@ -1,4 +1,4 @@
-import { sizeType } from "@/utils/types";
+import { sizeType } from "@/lib/types";
 import classNames from "classnames";
 import React, { FC } from "react";
 
