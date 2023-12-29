@@ -19,6 +19,7 @@ import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import {VoucherCodeType} from "@/lib/types"
 import StatusBadge from "@/components/StatusBadge";
+
 type Props = {
   data: VoucherCodeType[];
   onSelectRole?: (role: any) => void;
