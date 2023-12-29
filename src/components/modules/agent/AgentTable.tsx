@@ -17,7 +17,10 @@ import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { AgentType } from "@/lib/types";
 import StatusBadge from "@/components/StatusBadge";
-import { fuzzyFilter } from "@/lib/utils";
+import { fuzzyFilter, handleCopy } from "@/lib/utils";
+import { FaCopy } from "react-icons/fa";
+import moment from "moment";
+
 type Props = {
   data: AgentType[];
   onSelectRole?: (role: any) => void;
@@ -43,13 +46,40 @@ const AgentTable = ({ data }: Props) => {
         </p>
       ),
     }),
-    columnHelper.accessor("name", {
-      id: "plan",
+    columnHelper.accessor("createdAt", {
+      id: "createdAt",
       footer: (info) => info.column.id,
-      header: () => "Plan",
-      cell: (info) => (
-        <p className="capitalize text-opacity-90">{info.getValue()}</p>
-      ),
+      header: () => "Date Created",
+      cell: ({row}) => {
+        const role = row.original
+        return (
+          <p className=" text-opacity-90">{moment(role.createdAt).format('DD/MM/YYY h:mm:ss a') }</p>
+        )
+      },
+    }),
+    columnHelper.display({
+      id: "agent_link",
+      footer: (info) => info.column.id,
+      header: () => "Agent Link",
+      cell: ({ row }) => {
+        const role = row.original;
+        return (
+          <div className="flex items-center space-x-2 text-opacity-90 gap-x-2">
+            {`https://jp-customer-ui.vercel.app/play/agent/${role?.agentId}`}
+            <button
+              onClick={() =>
+                handleCopy(
+                  `https://jp-customer-ui.vercel.app/play/agent/${role?.agentId}`
+                )
+              }
+              className="flex items-center space-x-2 gap-x-2"
+              type="button"
+            >
+              <FaCopy />
+            </button>
+          </div>
+        );
+      },
     }),
     columnHelper.accessor("status", {
       id: "status",
@@ -57,7 +87,7 @@ const AgentTable = ({ data }: Props) => {
       header: () => "Status",
       cell: ({ row }) => {
         const { status } = row.original;
-        return <StatusBadge status={'in active'} />;
+        return <StatusBadge status={"in active"} />;
       },
     }),
 
@@ -70,7 +100,6 @@ const AgentTable = ({ data }: Props) => {
           <>
             <Link href={`/agent/${role?.agentId}`}>
               <JPButton>Details</JPButton>
-              
             </Link>
           </>
         );
