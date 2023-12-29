@@ -68,7 +68,7 @@ const AgentTable = ({ data }: Props) => {
         const role = row.original;
         return (
           <>
-            <Link href={`/lottery/${role?.agentId}`}>
+            <Link href={`/agent/${role?.agentId}`}>
               <JPButton>Details</JPButton>
               
             </Link>

@@ -9,11 +9,13 @@ type Props = {
   onChange: (date: any) => void;
   value: any;
   error: any;
+  minDate?: | Date | null
 };
 
 const JPDatePicker = (props: Props) => {
   const {
     onChange,
+    minDate,
     value,
     error,
     label,
@@ -26,7 +28,7 @@ const JPDatePicker = (props: Props) => {
       <DatePicker
         selected={value}
         onChange={onChange}
-        minDate={new Date()}
+        minDate={minDate ? new Date() : null}
         placeholderText={placeholder}
         className="w-full border border-gray-500 rounded-lg p-3"
       />

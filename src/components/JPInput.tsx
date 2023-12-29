@@ -55,6 +55,7 @@ const JPInput = forwardRef<inputRef, Props>(
         )}
                 {type == "password" && (
     <input
+    type="password"
     className="w-full rounded-md outline-none p-4 bg-transparent border border-primary-100 focus:border-primary-100 hover:border-primary-100"
     {...props}
     ref={ref as any}
