@@ -3,10 +3,12 @@ import React from "react";
 import JPInput from "../JPInput";
 import { useForm } from "react-hook-form";
 import JPButton from "../JPButton";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 const LoginForm = (props: Props) => {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -20,6 +22,7 @@ const LoginForm = (props: Props) => {
   });
   const onSubmit = (values: any) => {
     console.log("values", values);
+    router.push('/agent')
   };
   return (
     <div className="bg-white flex min-h-screen">
