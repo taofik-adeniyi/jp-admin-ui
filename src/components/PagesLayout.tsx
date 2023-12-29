@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import dashboardIcon from "@/assets/images/svg/dashboard.svg";
 import { usePathname } from "next/navigation";
+import GoBack from "./GoBack";
 type Props = {
   children: React.ReactNode;
 };
