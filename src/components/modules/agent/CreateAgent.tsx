@@ -28,6 +28,10 @@ const CreateAgent = (props: Props) => {
       email: "",
       state: "",
       lga: "",
+      classificationType: {
+        value: undefined,
+        label: undefined
+      }
     },
   });
   const onSubmit = async (values: CreateAgentType) => {
@@ -35,7 +39,8 @@ const CreateAgent = (props: Props) => {
       ...values,
       gender: values.gender?.value,
       name: values.firstName + " " + values.lastName,
-      dob: moment(values.dob).unix()
+      dob: moment(values.dob).unix(),
+      classificationType: values?.classificationType?.value
     }
     const res = await createAgent({ ...body, roleId: ROLES.AGENT });
     if (res.data.status == 201) {
@@ -128,21 +133,28 @@ const CreateAgent = (props: Props) => {
               />
             </div>
           </div>
-          {/* <Controller 
+          <Controller 
             control={control}
-            name="state"
+            name="classificationType"
+            rules={{
+              required: {
+                value: true,
+                message: "Classification is required!"
+              }
+            }}
             render={({field}) => {
               return (
                 <Select
                 onChange={field.onChange}
                 value={field.value} 
-                placeholder="Select State"
-                label="State"
-                options={[{value: 'male', label: 'Male'},{value: 'male', label: 'Male'}]}
+                placeholder="Select Classification"
+                label="Classification"
+                error={errors.classificationType?.message}
+                options={[{value: 'regular', label: 'Regular'},{value: 'principal', label: 'Principal'}]}
                 />
               )
             }}
-            /> */}
+            />
 
           <JPInput
             {...register("state", {

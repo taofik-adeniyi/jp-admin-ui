@@ -120,6 +120,10 @@ export type CreateAgentType = {
   roleId: ROLES.AGENT;
   password: string;
   email?:string
+  classificationType: {
+    value: "regular" | "principal",
+    label: "Regular" | "Principal"
+  }
 };
 export type CreateLotteryType = {
   title: string
