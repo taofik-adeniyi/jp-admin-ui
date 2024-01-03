@@ -15,6 +15,7 @@ import { unstable_cache } from "next/cache";
   export const getLotterys = async (): Promise<any | LotteryType[]> => {
     try {
       const res = await jpMiddleWare.get('/lottery')
+      console.log("res:::",res)
       return res.data
     } catch (error:AxiosError|any) {
       return error.response

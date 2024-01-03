@@ -36,16 +36,16 @@ const AgentTable = ({ data }: Props) => {
   });
 
   const desktopColumns = [
-    columnHelper.accessor("agentCode", {
-      id: "agentCode",
-      footer: (info) => info.column.id,
-      header: () => "Agent Code",
-      cell: (info) => (
-        <p className="max-w-[150px] truncate font-medium capitalize text-opacity-90">
-          {info.getValue()}
-        </p>
-      ),
+    columnHelper.display({
+      header: ()=>"S/N",
+      size: 10,
+      id: "s/n",
+      cell: ({ row }: { row: any }) => {
+        console.log("row", row);
+        return <strong>{parseInt(row.id) + 1}</strong>;
+      },
     }),
+
     columnHelper.accessor("createdAt", {
       id: "createdAt",
       footer: (info) => info.column.id,
@@ -53,10 +53,11 @@ const AgentTable = ({ data }: Props) => {
       cell: ({row}) => {
         const role = row.original
         return (
-          <p className=" text-opacity-90">{moment(role.createdAt).format('DD/MM/YYY h:mm:ss a') }</p>
+          <p className=" text-opacity-90">{moment(role.createdAt).format('DD/MM/YYYY LT') }</p>
         )
       },
     }),
+
     columnHelper.display({
       id: "agent_link",
       footer: (info) => info.column.id,
@@ -65,11 +66,11 @@ const AgentTable = ({ data }: Props) => {
         const role = row.original;
         return (
           <div className="flex items-center space-x-2 text-opacity-90 gap-x-2">
-            {`https://jp-customer-ui.vercel.app/play/agent/${role?.agentId}`}
+            {`https://jp-customer-ui.vercel.app/play/agent/${role?.agentId || role?.username}`}
             <button
               onClick={() =>
                 handleCopy(
-                  `https://jp-customer-ui.vercel.app/play/agent/${role?.agentId}`
+                  `https://jp-customer-ui.vercel.app/play/agent/${role?.agentId || role?.username}`
                 )
               }
               className="flex items-center space-x-2 gap-x-2"
@@ -81,16 +82,17 @@ const AgentTable = ({ data }: Props) => {
         );
       },
     }),
-    columnHelper.accessor("status", {
-      id: "status",
-      footer: (info) => info.column.id,
-      header: () => "Status",
-      cell: ({ row }) => {
-        const { status } = row.original;
-        return <StatusBadge status={"in active"} />;
-      },
-    }),
 
+    columnHelper.accessor("agentCode", {
+      id: "agentCode",
+      footer: (info) => info.column.id,
+      header: () => "Agent Code",
+      cell: (info) => (
+        <p className=" truncate font-medium capitalize text-opacity-90">
+          {info.getValue()}
+        </p>
+      ),
+    }),
     columnHelper.display({
       id: "action",
       header: () => "Actions",

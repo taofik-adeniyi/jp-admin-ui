@@ -63,7 +63,7 @@ const LotteryVoucherTable = ({data}: Props) => {
       cell: (info) => {
         return (
           <p className="capitalize text-opacity-90">
-            {moment(info?.row?.original?.createdAt).format("MM/DD/YYYY")}
+            {moment(info?.row?.original?.createdAt).format("MM/DD/YYYY LT")}
           </p>
         )
       },

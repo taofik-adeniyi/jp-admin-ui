@@ -87,7 +87,7 @@ export default async function submit() {
           </div>
 
           <div className="mt-10">
-            <LotteryTable data={data?.data} />
+            <LotteryTable data={data?.data || []} />
           </div>
         </>
       )}

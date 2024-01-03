@@ -50,8 +50,8 @@ const LotteryDrawTicketTable = ({data}: Props) => {
       footer: (info) => info.column.id,
       header: ()=>'Date Played',
       cell: (info) => (
-        <p className="max-w-[150px] truncate font-medium capitalize text-opacity-90">
-          {moment(info.getValue()).format("MM/DD/YYYY hh:mm:A")}
+        <p className="max-w-[150px] truncate font-medium text-opacity-90">
+          {moment(info.getValue()).format("MM/DD/YYYY LT")}
         </p>
       ),
     }),
@@ -61,7 +61,7 @@ const LotteryDrawTicketTable = ({data}: Props) => {
       cell: ({row}) => {
         const ticker = row.original
         // const ticketNumber = `${ticker?.agent?.name?.[0]}-${parseInt(row?.id)+1}${ticker._id}`
-        const ticketNumber = `${ticker._id}`
+        const ticketNumber = `${ticker?.ticketNumber || ticker._id}`
         return (
           <p className="capitalize text-opacity-90">
             {ticketNumber}
