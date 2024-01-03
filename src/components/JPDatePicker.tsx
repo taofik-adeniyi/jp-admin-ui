@@ -26,6 +26,7 @@ const JPDatePicker = (props: Props) => {
     <div className="w-full flex flex-col">
       <label className="text-left">{label}</label>
       <DatePicker
+      showYearDropdown
         selected={value}
         onChange={onChange}
         minDate={minDate ? new Date() : null}
@@ -34,7 +35,7 @@ const JPDatePicker = (props: Props) => {
       />
       {error && (
         <div className="flex w-full justify-between mt-1">
-          <p className="text-red-700 capitalize p-0 m-0">{error}</p>
+          <p className="text-red-700 p-0 m-0">{error}</p>
         </div>
       )}
     </div>
