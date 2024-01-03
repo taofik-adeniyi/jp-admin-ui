@@ -92,6 +92,7 @@ export type AgentType = {
   agentId: string
   name: string
   phoneNumber: string,
+  username:string;
   roleId: string,
   createdAt: string,
   updatedAt: string,
@@ -115,7 +116,8 @@ export type CreateAgentType = {
   gender:string|any;
   state: string | any;
   lga:string | any 
-  dob:string | any
+  dob:string | any;
+  username: string;
   phoneNumber: string;
   roleId: ROLES.AGENT;
   password: string;

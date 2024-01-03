@@ -19,6 +19,7 @@ import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import {LotteryDrawType} from "@/lib/types"
 import StatusBadge from "@/components/StatusBadge";
+import moment from "moment-timezone";
 type Props = {
   data: LotteryDrawType[];
   onSelectRole?: (role: any) => void;
@@ -60,8 +61,8 @@ const LotteryDrawTable = ({data}: Props) => {
       footer: (info) => info.column.id,
       header: () =>'Start Date',
       cell: (info) => (
-        <p className="capitalize text-opacity-90">
-          {info.getValue()}
+        <p className="text-opacity-90">
+          {moment.unix(parseInt(info.getValue())).format("DD/MM/YYYY LT")}
         </p>
       ),
     }),
@@ -71,21 +72,22 @@ const LotteryDrawTable = ({data}: Props) => {
       header: () =>'End Date',
       cell: (info) => (
         <p className="capitalize text-opacity-90">
-          {info.getValue()}
+          {moment.unix(parseInt(info.getValue())).format("DD/MM/YYYY LT")}
         </p>
       ),
     }),
     columnHelper.accessor("noOfPlayers", {
       id: "noOfPlayers",
       footer: (info) => info.column.id,
-      header: () =>'No of Players',
+      header: () =>'Number of Players',
       cell: ({row}) => {
         const { noOfPlayers } = row.original
-        return <p className="capitalize text-opacity-90">N/A</p>
+        return <p className=" text-opacity-90">N/A</p>
       },
     }),
     columnHelper.display({
       id: "action",
+      header: 'Actions',
       cell: ({ row }) => {
         const role = row.original;
         return (

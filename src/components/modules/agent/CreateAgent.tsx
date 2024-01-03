@@ -26,6 +26,7 @@ const CreateAgent = (props: Props) => {
       phoneNumber: "",
       password: "Password@1",
       email: "",
+      username: "",
       state: "",
       lga: "",
       classificationType: {
@@ -34,6 +35,7 @@ const CreateAgent = (props: Props) => {
       }
     },
   });
+  console.log({errors})
   const onSubmit = async (values: CreateAgentType) => {
     const body = {
       ...values,
@@ -74,9 +76,26 @@ const CreateAgent = (props: Props) => {
                 message: "Last Name is required",
               },
             })}
+         
             error={errors?.lastName?.message!}
             label="Last Name"
             placeholder="Enter last name"
+            type="text"
+          />
+            <JPInput
+             maxLength={6}
+             minLength={4}
+            {...register("username", {
+              required: {
+                value: true,
+                message: "UserName is required",
+              },
+              // maxLength: 6,
+              // minLength: 4
+            })}
+            error={errors?.username?.message!}
+            label="User Name"
+            placeholder="Enter User name"
             type="text"
           />
           <div className="flex justify-between gap-x-5">

@@ -20,7 +20,7 @@ const Agent = async (props: Props) => {
         <>
         <PageHeader title="Agent" extra={<AgentHeaderExtra/>} />
       <div className="mt-10">
-        <AgentTable data={agentsData} />
+        <AgentTable data={agentsData || []} />
       </div>
         </>
       )}

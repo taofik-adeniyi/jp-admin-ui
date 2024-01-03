@@ -19,6 +19,7 @@ import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import {LotteryType} from "@/lib/types"
 import StatusBadge from "@/components/StatusBadge";
+import moment from "moment-timezone";
 type Props = {
   data: LotteryType[];
   onSelectRole?: (role: any) => void;
@@ -49,17 +50,7 @@ console.log("data>>>>",data)
       footer: (info) => info.column.id,
       header: ()=>'Title',
       cell: (info) => (
-        <p className="max-w-[150px] truncate font-medium capitalize text-opacity-90">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-    columnHelper.accessor("plan", {
-      id: "plan",
-      footer: (info) => info.column.id,
-      header: () =>'Plan',
-      cell: (info) => (
-        <p className="capitalize text-opacity-90">
+        <p className="truncate font-medium capitalize text-opacity-90">
           {info.getValue()}
         </p>
       ),
@@ -69,23 +60,14 @@ console.log("data>>>>",data)
       footer: (info) => info.column.id,
       header: () =>'Date Created',
       cell: (info) => (
-        <p className="capitalize text-opacity-90">
-          {info.getValue()}
+        <p className="text-opacity-90">
+          {moment(info.getValue()).format("DD/MM/YYYY, LT")}
         </p>
       ),
     }),
-    columnHelper.accessor("status", {
-      id: "status",
-      footer: (info) => info.column.id,
-      header: () =>'Status',
-      cell: ({row}) => {
-        const { status } = row.original
-        return <StatusBadge status={status} />
-      },
-    }),
-
     columnHelper.display({
       id: "action",
+      header: () =>'Actions',
       cell: ({ row }) => {
         const { _id } = row.original;
         return (

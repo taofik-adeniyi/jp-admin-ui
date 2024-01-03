@@ -38,7 +38,7 @@ export const getDrawsByLotteryId = async (lotteryId:string): Promise<any> => {
     return {error: error.response}
   }
 }
-export const getSingleDraws = async (id:number): Promise<any | AgentType[]> => {
+export const getSingleDraws = async (id:string): Promise<any | AgentType[]> => {
     try {
       const res = await jpMiddleWare.get(`/draw/${id}`, {})
       return {data:res.data}

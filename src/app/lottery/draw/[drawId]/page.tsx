@@ -1,40 +1,64 @@
-import GoBack from '@/components/GoBack'
-import JPButton from '@/components/JPButton'
-import LotteryDrawTicketTable from '@/components/modules/lottery/LotteryDrawTicketTable'
-import { fetchTicketsByDrawId } from '@/services/ticket'
-import Image from 'next/image'
-import React from 'react'
+import CountDownTimer from "@/components/CountDownTimer";
+import GoBack from "@/components/GoBack";
+import JPButton from "@/components/JPButton";
+import LotteryDrawTicketTable from "@/components/modules/lottery/LotteryDrawTicketTable";
+import { getSingleDraws } from "@/services/draw";
+import { fetchTicketsByDrawId } from "@/services/ticket";
+import moment from "moment";
+import Image from "next/image";
+import React from "react";
 
 type Props = {
   params: {
-    drawId:string
-  }
-}
+    drawId: string;
+  };
+};
 
 const LotteryDrawDetail = async (props: Props) => {
-  const { params: { drawId }} = props
-  const {error,data} = await fetchTicketsByDrawId(drawId)
-  console.log("tickets:error",error)
-  console.log("tickets:error",error?.status)
-  console.log("tickets:error",error?.statusText)
-  console.log("ticket:data",data?.data)
+  const {
+    params: { drawId },
+  } = props;
+  const { error, data } = await fetchTicketsByDrawId(drawId);
+  const draww = await getSingleDraws(drawId)
+  const drawData = draww?.data;
   return (
-    <div className='font-roboto'>
-        <div className='my-8 flex items-center gap-x-4'>
-          <GoBack />
-          {/* <h1>Lottery/Draw</h1> */}
-        </div>
+    <div className="font-roboto">
+      <div className="my-8 flex items-center gap-x-4">
+        <GoBack />
+        {/* <h1>Lottery/Draw</h1> */}
+      </div>
 
-        <div className='w-full border border-[#E6E7E8]'>
-            <div className='w-[96%] mx-auto gap-x-5 border-b border-gray-200 flex items-end pb-5 my-6'>
-                <Image priority src="/drawplaceholderlogo.png" width={70} height={70} alt="Draw title"  />
-                <div className='space-y-4'>
-                    <h2 className='text-[#2F2F30]'>Awoof</h2>
-                    {/* <p className='m-0 p-0 font-roboto text-[#2F2F30] text-base'>Created by <b>Admin</b> | 14 Aug, 2023 • 01:33:20 pm • <b>2000 in stock</b></p> */}
-                </div>
+      <div className="w-full border bg-white border-[#E6E7E8]">
+        <div className="w-[96%] mx-auto pr-10 border-b border-gray-200 flex items-center justify-between pb-5 my-6">
+          <div className="flex gap-x-10 items-center">
+            <Image
+              priority
+              src="/drawplaceholderlogo.png"
+              width={70}
+              height={70}
+              alt="Draw title"
+            />
+            <div className="space-y-4">
+              <h2 className="text-[#2F2F30]">Awoof</h2>
+              <div className="flex space-x-5 justify-between">
+                <h3>{moment
+                  .unix(drawData?.startDate)
+                  .format("DD/MM/YYYY")}</h3>
+                <span>-</span>
+                <h3>
+                {moment.unix(drawData?.endDate).format("DD/MM/YYYY")}
+                </h3>
+              </div>
+              {/* <p className='m-0 p-0 font-roboto text-[#2F2F30] text-base'>Created by <b>Admin</b> | 14 Aug, 2023 • 01:33:20 pm • <b>2000 in stock</b></p> */}
             </div>
+          </div>
+
+          <div>
+            <CountDownTimer targetDate={moment.unix(drawData?.endDate).format('MM/DD/YYYY')} />
+          </div>
         </div>
-{/* 
+      </div>
+      {/* 
         <div className='border border-[#E6E7E8] bg-[#E6E7E8] p-8 flex justify-between items-center text-center'>
           <div className='flex flex-col'>
             <h1>Total Tickets</h1>
@@ -65,16 +89,20 @@ const LotteryDrawDetail = async (props: Props) => {
           </div>
         </div> */}
 
-        <div className='my-5'>
-          <div><h1 className='font-medium text-[#2F2F30] text-base'>Ticket List</h1></div>
+      <div className="my-5">
+        <div>
+          <h1 className="font-medium text-[#2F2F30] text-base">Ticket List</h1>
         </div>
+      </div>
 
-        <LotteryDrawTicketTable data={data?.data || []} />
-        <div className="flex justify-end my-8">
-        <JPButton type="button" classes='bg-[#8383CC] text-white'>Choose Winner</JPButton>
+      <LotteryDrawTicketTable data={data?.data || []} />
+      <div className="flex justify-end my-8">
+        <JPButton type="button" classes="bg-[#8383CC] text-white">
+          Choose Winner
+        </JPButton>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LotteryDrawDetail
+export default LotteryDrawDetail;
